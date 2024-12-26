@@ -24,7 +24,7 @@
                 $this->allValid = false;
             }
             // invalid email
-            if ($this->isEmailValid()){
+            if (!$this->isEmailValid()){
                 $this->email_format_error = 'Wrong email format';
                 $this->allValid = false;
             }
@@ -40,6 +40,9 @@
             }
 
             if ($this->allValid){
+                $this->name = $this->check_input($this->name);
+                $this->email = $this->check_input($this->email);
+                $this->password = $this->check_input($this->password);
                 return $this->setUser($this->name, $this->email, $this->password);
             }
             return false;
@@ -73,5 +76,12 @@
         // check if the user exist in db
         private function userStatus(){
             return $this->checkUser($this->email);
+        }
+        // 
+        function check_input($input_value){
+            $input_value = trim($input_value);
+            $input_value = stripslashes($input_value);
+            $input_value = htmlspecialchars($input_value);
+            return $input_value;
         }
     }

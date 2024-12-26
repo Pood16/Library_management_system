@@ -17,11 +17,11 @@
                 $stmt->bindParam(':role', $role, PDO::PARAM_STR);
                 
                 $stmt->execute();
-                $_SESSION['set_result'] = 'User Added';
-                
+               
+                header("Location: ../views/users/signup.php?set_user_statement=user_added");
             } catch (PDOException $e) {
-                $_SESSION['set_result'] = 'Failed to add the user: ' . $e->getMessage();
-                header("Location: ../views/auth/signup.php?set_user_statement=stmtfailed");
+                echo 'Failed to add the user: ' . $e->getMessage();
+                header("Location: ../views/users/signup.php?set_user_statement=stmtfailed");
                 exit();
             } finally {
                 $stmt = null;
