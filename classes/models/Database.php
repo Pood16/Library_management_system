@@ -2,9 +2,9 @@
 
     class Database {
         private $username ='root';
-        private $password = '8951';
+        private $password = '';
         private $hostname = 'localhost';
-        private $dbname = 'Library';
+        private $dbname = 'bibliotheque';
 
         protected function connect(){
             try{
