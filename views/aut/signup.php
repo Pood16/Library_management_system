@@ -1,30 +1,24 @@
-<?php 
-    include '../../classes/models/Database.php';
-    include '../../classes/models/User.php';
-    include '../../classes/controllers/userControler.php';
-    $error_name = "";
-    $error_email = "";
-    $error_password = "";
-    $error_empty = "";
-    $email_exist_error = "";
+<?php
+require_once '../../classes/controllers/userController.php';
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])){
-        $username = $_POST['username'];
-  
-        $useremail = $_POST['email'];
-        $userpassword = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
 
-        $signup = new userController($username, $useremail, $userpassword);
-        if ($signup->signUpUser()){
-            header("Location: login.php?success=registered");
-            exit();
-        } else {
-            $error_email = $signup->email_format_error;
-            $error_password = $signup->password_error;
-            $error_empty = $signup->empty_error; 
-            $email_exist_error  = $signup->email_error;
-        }    
+    $controller = new UserController();
+    $result = $controller->register($_POST);
+    
+    if ($result === true) {
+        header('Location: login.php?comming-from-signup');
+        exit();
+    } else {
+        $errors = $result;
+        echo "<pre>";
+        print_r($errors);
+        echo "</pre>";
     }
+} 
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +43,7 @@
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-800">Create Account</h2>
                 <p class="text-gray-600 mt-2">Join our library community</p>
-                <span class="text-red-400"><?=$email_exist_error?></span>
+                <span class="text-red-400"></span>
             </div>
 
             <form action="<?=htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post" class="space-y-6">
@@ -57,7 +51,7 @@
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                     <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500">
-                    <span class="text-red-400"><?=$error_empty?></span>
+                    <span class="text-red-400"></span>
 
                 </div>
 
@@ -65,7 +59,7 @@
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <input type="text" id="email" name="email"  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500">
-                    <span class="text-red-400"><?=$error_email?></span>
+                    <span class="text-red-400"></span>
 
                 </div>
 
@@ -73,7 +67,7 @@
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                     <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500">
-                    <span class="text-red-400"><?=$error_password?></span>
+                    <span class="text-red-400"></span>
                 </div>
 
                 <!-- Register Button -->
