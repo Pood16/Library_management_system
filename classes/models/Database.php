@@ -1,20 +1,39 @@
 <?php 
 
     class Database {
-        private $username ='root';
-        private $password = '8951';
-        private $hostname = 'localhost';
-        private $dbname = 'Library';
+        private $dbname;
+        private $password;
+        private $username;
+        private $hostname;
+        private $pdo_connection;
 
-        protected function connect(){
+        public function __construct($dbname,$password, $hostname = 'localhost', $username = 'root'){
+            $this -> dbname = $dbname;
+            $this -> password = $password;
+            $this -> hostname = $hostname;
+            $this -> username = $username;
+        }
+        public function connect(){
             try{
-                $pdo_connection = new PDO('mysql:host=localhost;dbname=Library', 'root', '8951');
-                $pdo_connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                $pdo_connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                $this->pdo_connection = new PDO(
+                    "mysql:host={$this->hostname};dbname={$this->dbname}", 
+                    $this->username,
+                    $this->password
+                );
+                $this->pdo_connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+                $this->pdo_connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
                 // echo "connected with database succefully!";
-                return $pdo_connection;
+                return $this->pdo_connection;
             }catch(PDOException $err){
                 die("Failed to connect to database : ".$err->getMessage());
             }
         }
+        public function disconnect() {
+            if ($this->pdo_connection) {
+                $this->pdo_connection = null;
+                return true;
+            }
+            return false;
+        }
     }
+

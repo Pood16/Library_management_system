@@ -1,3 +1,38 @@
+<?php
+    require_once '../../classes/controllers/userController.php';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $controller = new UserController();
+        $result = $controller->login($_POST);
+        if ($result === true) {
+            $user_role = $_SESSION['user_role'];
+            checkRole($_SESSION['user_role']);
+            exit();
+        } else {
+            $errors = $result;
+            echo "<pre>";
+            print_r($errors);
+            echo "</pre>";
+        }
+    } 
+    function checkRole($role){
+        $user_role = $role;
+        switch($user_role){
+            case 'admin':
+                header('Location: ../admin/admin_dash.php');
+                break;
+            case 'authenticated':
+                header('Location: ../users/user_dash.php');
+                break;
+            case 'visitor':
+                header('Location: ../books/index.php');
+                break;
+            default:
+                header('Location: login.php?the_role_is_undefined');
+                break;
+                
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,18 +57,18 @@
                 <p class="text-gray-600 mt-2">Login to your library account</p>
             </div>
 
-            <form class="space-y-6">
+            <form class="space-y-6" action="<?=htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post">
                 <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" required
+                    <input type="text" id="email" name="email" 
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <!-- Password -->
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" required
+                    <input type="password" id="password" name="password"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
@@ -48,7 +83,7 @@
                 <!-- Register Link -->
                 <p class="text-center text-sm text-gray-600">
                     Don't have an account? 
-                    <a href="register.php" class="font-medium text-blue-600 hover:text-blue-500">Register here</a>
+                    <a href="signup.php" class="font-medium text-blue-600 hover:text-blue-500">Register here</a>
                 </p>
             </form>
         </div>
