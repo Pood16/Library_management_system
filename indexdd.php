@@ -1,12 +1,6 @@
-<?php
-$host="localhost";
-$user="root";
-$password="";
-$db="bibliotheque";
 
-mysqli_connect($host, $user, $password, $db);
 
-?>
+
 <html lang="en">
   <head>
     
