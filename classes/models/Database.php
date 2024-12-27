@@ -15,8 +15,7 @@
         }
         public function connect(){
             try{
-                $this->pdo_connection = new PDO(
-                    "mysql:host={$this->hostname};dbname={$this->dbname}", 
+                $this->pdo_connection = new PDO("mysql:host={$this->hostname};dbname={$this->dbname}", 
                     $this->username,
                     $this->password
                 );
@@ -27,13 +26,6 @@
             }catch(PDOException $err){
                 die("Failed to connect to database : ".$err->getMessage());
             }
-        }
-        public function disconnect() {
-            if ($this->pdo_connection) {
-                $this->pdo_connection = null;
-                return true;
-            }
-            return false;
         }
     }
 
