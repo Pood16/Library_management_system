@@ -42,7 +42,8 @@
         // function to display all books in db
         public function showBooks(){
             $books = new Book();
-            return $books->displayBook();
+            $rows = $books->displayBook();
+            return $rows;
         }
         
         

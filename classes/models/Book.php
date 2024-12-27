@@ -55,8 +55,8 @@
                 $sql = 'SELECT * FROM books';
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
-                if($stmt->rowCount() > 0){
-                    $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if(!empty($books)){
                     return $books;
                 }
             } catch (PDOException $err) {

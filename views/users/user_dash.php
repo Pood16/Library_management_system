@@ -59,30 +59,28 @@ $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
 
         <!-- Main Content -->
         <main class="flex-1 p-8">
-            <!-- Search Content -->
+            <!-- search and filter -->
             <div id="search-content" class="content-section">
-                <h2 class="text-2xl font-bold mb-6">Recherche de Livres</h2>
+                <h2 class="text-2xl font-bold mb-6">Catalogue Des Livres</h2>
                 <div class="space-y-6">
-                    <div class="max-w-xl">
-                        <input type="text" 
-                               placeholder="Rechercher par titre ou auteur..." 
-                               class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="flex justify-between">
+                        <div class="flex justify-between items-center">
+                            <input type="text" placeholder="Rechercher par titre ou auteur" class="px-4 py-2 rounded-lg border focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <input type="submit" value="Search" class="ml-2 px-5 py-2 bg-blue-600 cursor-pointer text-white rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <select class="px-4 py-2 rounded-lg border focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                <option value="" disabled selected>Filtrer par catégorie</option>
+                                <option value="fiction">Fiction</option>
+                                <option value="science">Science</option>
+                                <option value="histoire">Histoire</option>
+                            </select>
+                        </div>
                     </div>
                     
                     <!-- Search Results -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Example Book Card -->
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <img src="/api/placeholder/150/200" alt="Book Cover" class="w-full h-48 object-cover rounded-lg mb-4">
-                            <h3 class="font-bold text-lg">Les Misérables</h3>
-                            <p class="text-gray-600">Victor Hugo</p>
-                            <div class="mt-4 flex justify-between items-center">
-                                <span class="text-green-600 text-sm">Disponible</span>
-                                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                                    Réserver
-                                </button>
-                            </div>
-                        </div>
+                        <?php include '../books/showBooksInDash.php'?>
                     </div>
                 </div>
             </div>
