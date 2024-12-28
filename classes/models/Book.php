@@ -90,8 +90,22 @@
                 $stmt = null;
             }
         }
-        
-        // 
+        // delete book 
+        public function deleteBook($id){
+            try {
+                $db = new Database('Library', 8951);
+                $pdo = $db->connect();
+                $sql = 'DELETE FROM books WHERE books.id = :id';
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                $stmt->execute();
+            } catch (PDOException $err) {
+                echo 'Failed to Delete the book the Book: ' . $err->getMessage();
+                exit();
+            } finally {
+                $stmt = null;
+            }
+        }
     
     }
 

@@ -72,6 +72,17 @@
                 return $this->validation_errors;
             }
         }
+        public function deleteBookCtr($id){
+            $book = new Book();
+
+            try {
+                $book->deleteBook($id);
+                return true;
+            } catch (Exception $e) {
+                $this->validation_errors['general'] = 'Failed To delete the Book';
+                return $this->validation_errors;
+            }
+        }
 
         
         
