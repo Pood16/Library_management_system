@@ -17,7 +17,7 @@
         
         // function : ajouter un Livre
         public function addBookCtr($data){
-            $this->validateAddNewBookData($data);
+            $this->validateFormData($data);
 
         
             if (!$this->is_valid) {
@@ -46,6 +46,33 @@
             $rows = $books->displayBook();
             return $rows;
         }
+        // get book by id
+        public function getBook($id){
+            $book = new Book();
+            $row = $book->getBookId($id);
+            return $row;
+        }
+        // update book
+        public function updateBookCtr($data){
+            $this->validateFormData($data);
+
+        
+            if (!$this->is_valid) {
+                return $this->validation_errors;
+            }
+
+            $book = new Book();
+
+            //  add book
+            try {
+                $book->updateBook($data['id'],$data['title'], $data['author'], $data['category_id'] , $data['cover_image'], $data['summary'], $data['status']);
+                return true;
+            } catch (Exception $e) {
+                $this->validation_errors['general'] = 'Failed To update the Book';
+                return $this->validation_errors;
+            }
+        }
+
         
         
         
@@ -54,7 +81,7 @@
         
         
         // function validation des inputs  = imputs not empty and prevent
-        private function validateAddNewBookData($data) {
+        private function validateFormData($data) {
             // Validate Title
             if (empty($data['title'])) {
                 $this->validation_errors['title'] = 'Title is required';

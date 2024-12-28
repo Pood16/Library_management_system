@@ -50,16 +50,49 @@
                 $stmt = null;
             }
         }
+        // get book by id
+        public function getBookId($id){
+            try {
+                $db = new Database('Library', 8951);
+                $pdo = $db->connect();
+                $sql = 'SELECT books.*, categories.name FROM books INNER JOIN categories ON books.category_id = categories.id WHERE books.id = :id';
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+                $stmt->execute();
+                $book = $stmt->fetch();
+                return $book;
+            } catch (PDOException $err) {
+                echo 'Failed to add the Book: ' . $err->getMessage();
+                exit();
+            } finally {
+                $stmt = null;
+            }
+        }
+        // update book 
+        public function updateBook($id, $title, $author, $category_id, $cover_image, $summary, $status){
+            try {
+                $db = new Database('Library', 8951);
+                $pdo = $db->connect();
+                $sql = 'UPDATE books SET title = :title, author = :author, category_id = :category_id, cover_image = :cover_image, summary = :summary, status = :status WHERE books.id = :id';
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+                $stmt->bindParam(':author', $author, PDO::PARAM_STR);
+                $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+                $stmt->bindParam(':cover_image', $cover_image, PDO::PARAM_STR);
+                $stmt->bindParam(':summary', $summary, PDO::PARAM_STR);
+                $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $err) {
+                echo 'Failed to update the book the Book: ' . $err->getMessage();
+                exit();
+            } finally {
+                $stmt = null;
+            }
+        }
+        
+        // 
     
     }
 
-    // public function __construct($title, $author, $category_id, $cover_image, $summary, $id=null, $status=null, $created_at=null){
-        //     $this->title = $title;
-        //     $this->author = $author;
-        //     $this->category_id = $category_id;
-        //     $this->cover_image = $cover_image;
-        //     $this->summary = $summary;
-        //     $this->id = $id;
-        //     $this->status = $status;
-        //     $this->created_at = $created_at;
-        // }
+    
