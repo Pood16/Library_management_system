@@ -113,23 +113,15 @@ $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
                 <div id="catalog-section" class="section hidden">
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h3 class="text-lg font-semibold mb-4">Catalogue de Livres</h3>
-                        <button class="bg-green-500 text-white px-4 py-2 rounded mb-4">
-                            <i class="fas fa-plus mr-2"></i>Ajouter un livre
-                        </button>
-                        <table class="w-full">
-                            <thead>
-                                <tr class="text-left bg-gray-50">
-                                    <th class="p-3">Titre</th>
-                                    <th class="p-3">Auteur</th>
-                                    <th class="p-3">Catégorie</th>
-                                    <th class="p-3">Status</th>
-                                    <th class="p-3">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Add books here -->
-                            </tbody>
-                        </table>
+                        <div class="flex justify-between items-center">
+                            <a href="../books/createBook.php" class="bg-green-500 text-white px-4 py-2 rounded mb-4">
+                                <i class="fas fa-plus mr-2"></i>Ajouter un livre
+                            </a>
+                            <a href="../admin/addCat.php" class="bg-green-500 text-white px-4 py-2 rounded mb-4">
+                                <i class="fas fa-plus mr-2"></i>Ajouter une Categorie
+                            </a>
+                        </div>
+                        <?php include 'showBooksAdmin.php'?>
                     </div>
                 </div>
 
@@ -162,7 +154,6 @@ $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
             // Get all navigation links
             const navLinks = document.querySelectorAll('.nav-link');
             
@@ -205,7 +196,6 @@ $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
                     showSection(sectionId);
                 });
             });
-        });
     </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php 
 
 
-    require 'Database.php';
+    require_once 'Database.php';
     class Book {
         private $title;
         private $author;
@@ -13,20 +13,6 @@
         private $created_at;
 
 
-        // public function __construct($title, $author, $category_id, $cover_image, $summary, $id=null, $status=null, $created_at=null){
-        //     $this->title = $title;
-        //     $this->author = $author;
-        //     $this->category_id = $category_id;
-        //     $this->cover_image = $cover_image;
-        //     $this->summary = $summary;
-        //     $this->id = $id;
-        //     $this->status = $status;
-        //     $this->created_at = $created_at;
-        // }
-
-
-        // methods = functions - database
-      
         // add book
         public function addBook($title, $author, $category_id, $cover_image, $summary){
             try {
@@ -52,13 +38,11 @@
             try {
                 $db = new Database('Library', 8951);
                 $pdo = $db->connect();
-                $sql = 'SELECT * FROM books';
+                $sql = 'SELECT books.*, categories.name FROM books JOIN categories ON books.category_id = categories.id';
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                if(!empty($books)){
-                    return $books;
-                }
+                return $books;
             } catch (PDOException $err) {
                 echo 'Failed to add the Book: ' . $err->getMessage();
                 exit();
@@ -66,11 +50,16 @@
                 $stmt = null;
             }
         }
-  
-
-
-
-
-
     
     }
+
+    // public function __construct($title, $author, $category_id, $cover_image, $summary, $id=null, $status=null, $created_at=null){
+        //     $this->title = $title;
+        //     $this->author = $author;
+        //     $this->category_id = $category_id;
+        //     $this->cover_image = $cover_image;
+        //     $this->summary = $summary;
+        //     $this->id = $id;
+        //     $this->status = $status;
+        //     $this->created_at = $created_at;
+        // }

@@ -1,5 +1,5 @@
 <?php 
-    require 'Database.php';
+    require_once 'Database.php';
    
 
     class User {
@@ -33,7 +33,7 @@
                 $stmt->bindParam(':password', $secure_password, PDO::PARAM_STR);
                 // $stmt->bindParam(':role', $this->role, PDO::PARAM_STR);
                 $stmt->execute();
-                $_SESSION['user_name'] = $this->name;
+                
                 header("Location: ../../views/books/index.php");
             } catch (PDOException $e) {
                 echo 'Failed to add the user: ' . $e->getMessage();

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../classes/models/User.php'; 
+require '../../classes/models/User.php'; 
 
 class UserController {
 
@@ -15,8 +15,8 @@ class UserController {
     
     public function register($post_data) {
         // Validate input
+        $post_data = $this->sanitizeInput($post_data);
         $this->validateRegistrationData($post_data);
-
         
         if (!$this->is_valid) {
             return $this->validation_errors;
@@ -111,9 +111,12 @@ class UserController {
         exit();
     }
 
-    
-    private function sanitizeInput($data) {
-        return htmlspecialchars(trim($data));
+    public function sanitizeInput($data) {
+        foreach ($data as $key => $value) {
+            $data[$key] = htmlspecialchars(trim($value));
+        }
+        return $data;
     }
+  
 }
 ?>

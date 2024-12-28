@@ -2,6 +2,7 @@
 
     require '../../classes/models/Book.php';
 
+
     class bookController {
 
         private $validation_errors = [
@@ -10,6 +11,7 @@
             'category_name' => '',
             'cover_image' => '',
             'summary' => '',
+            'general' => ''
         ];
         private $is_valid = true;
         
@@ -26,8 +28,7 @@
 
             //  add book
             try {
-                
-                $book->addBook($data['title'], $data['author'], 1, $data['cover_image'], $data['summary']);
+                $book->addBook($data['title'], $data['author'], $data['category_id'] , $data['cover_image'], $data['summary']);
                 return true;
             } catch (Exception $e) {
                 $this->validation_errors['general'] = 'Failed To add the Book';
@@ -67,8 +68,8 @@
             } 
 
             // Validate Categoory
-            if (empty($data['category_name'])) {
-                $this->validation_errors['category_name'] = 'category name is required';
+            if (empty($data['category_id'])) {
+                $this->validation_errors['category_id'] = 'category is required';
                 $this->is_valid = false;
             }
             
@@ -84,8 +85,8 @@
                 $this->is_valid = false;
             }
         }
-        private function sanitizeInput($data) {
-            return htmlspecialchars(trim($data));
-        }
+        // private function sanitizeInput($data) {
+        //     return htmlspecialchars(trim($data));
+        // }
 
     }

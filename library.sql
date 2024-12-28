@@ -90,3 +90,4 @@ VALUES
 delete from books;
 INSERT INTO books (title, author, category_id, cover_image, summary, status)
 VALUES ('1984', 'George Orwell', 2, 'https://thewonk.in/wp-content/uploads/2024/02/ninteen-eighty-four-book-review.jpg', 'A dystopian novel depicting a totalitarian society under constant surveillance.', 'available');
+select * from books;
