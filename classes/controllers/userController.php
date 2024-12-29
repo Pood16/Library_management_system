@@ -12,7 +12,7 @@ class UserController {
     ];
     private $is_valid = true;
 
-    
+    // Register
     public function register($post_data) {
         // Validate input
         $post_data = $this->sanitizeInput($post_data);
@@ -44,10 +44,7 @@ class UserController {
             return $this->validation_errors;
         }
     }
-
-    
-    // Handle user login
-    
+    // login
     public function login($post_data) {
         // Validate input
         if (empty($post_data['email']) || empty($post_data['password'])) {
@@ -74,8 +71,31 @@ class UserController {
         $this->validation_errors['general'] = 'Invalid email or password';
         return $this->validation_errors;
     }
+    // get users
+    public function getAllUsers(){
+        $users = new User('', '', '');
+        return $users->getUsers();
+    }
+    // delete user 
+    public function deleteSelectedUser($id){
+        $user = new User('', '', '', $id);
+        $user->deleteUser();
+    }
+    // get userby id
+    public function getUserById($id){
+        $user = new User('', '', '', $id);
+        return $user->getUserId();
+    }
+    // update user role in db 
+    public function updateuserRole($id, $role){
+        $user = new User('', '', '', $id, $role);
+        $user->updateUserRole();
+    }
+    
 
    
+
+    // validation functions : 
     private function validateRegistrationData($data) {
         // Validate name
         if (empty($data['username'])) {
@@ -102,7 +122,7 @@ class UserController {
         }
     }
 
-    // log out
+    // logout
     public function logout() {
         session_start();
         session_unset();

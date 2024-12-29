@@ -11,13 +11,13 @@
         private $role;
         private $created_at;
 
-        public function __construct($name, $email, $password, $role = null, $create_at = null, $id = null) {
+        public function __construct($name, $email, $password,$id = null, $role = null, $create_at = null) {
             $this->name = $name;
             $this->email = $email;
             $this->password = $password;
+            $this->id = $id;
             $this->role = $role;
             $this->created_at = $create_at;
-            $this->id = $id;
         }
     
         // set user to db
@@ -70,7 +70,7 @@
             
 
         }
-        // get user from db
+        // get user from db using email
         public function getUser(){
             $user = null;
             try{
@@ -97,6 +97,69 @@
                 echo "<pre>";
                 print_r($user);
                 echo "</pre>";
+            }finally{
+                $stmt = null;
+            }
+        }
+        // get all users
+        public function getUsers(){
+            try{
+                $db = new Database('Library', 8951);
+                $pdo = $db->connect();
+                $sql = "SELECT * FROM users";
+                $stmt = $pdo-> prepare($sql);
+                $stmt->execute();
+                return $stmt->fetchAll();
+            }catch(PDOException $err){
+                echo "Failed to get  users : ".$err->getMessage();
+            }finally{
+                $stmt = null;
+            }
+        }
+        // delete users by ID
+        public function deleteUser(){
+            try{
+                $db = new Database('Library', 8951);
+                $pdo = $db->connect();
+                $sql = "DELETE FROM users WHERE users.id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+                
+            }catch(PDOException $err){
+                echo "Failed to Delete  user : ".$err->getMessage();
+            }finally{
+                $stmt = null;
+            }
+        }
+        // get user from db using id
+        public function getUserId(){
+            try{
+                $db = new Database('Library', 8951);
+                $pdo = $db->connect();
+                $sql = "SELECT * FROM users WHERE users.id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetch();
+            }catch(PDOException $err){
+                echo "Failed to Select  user : ".$err->getMessage();
+            }finally{
+                $stmt = null;
+            }
+        }
+        // update the user role
+        public function updateUserRole(){
+            try{
+                $db = new Database('Library', 8951);
+                $pdo = $db->connect();
+                $sql = "UPDATE users SET users.role = :role WHERE users.id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':role', $this->role, PDO::PARAM_STR);
+                $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+                $stmt->execute();
+            }catch(PDOException $err){
+                echo "Failed to update the role " . $err->getMessage();
             }finally{
                 $stmt = null;
             }

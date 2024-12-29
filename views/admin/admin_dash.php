@@ -1,6 +1,7 @@
 <?php
-session_start();
-$user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
+    require_once '../../classes/controllers/bookController.php';
+    $book = new bookController();
+    $rows = $book->showBooks();
 ?>
 
 
@@ -60,16 +61,16 @@ $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                         <div class="bg-white rounded-lg shadow-md p-6">
                             <h3 class="text-gray-500 text-sm uppercase">Total Livres</h3>
-                            <p class="text-3xl font-bold">1,250</p>
+                            <p class="text-3xl font-bold"><?=count($rows)?></p>
                         </div>
-                        <div class="bg-white rounded-lg shadow-md p-6">
+                        <!-- <div class="bg-white rounded-lg shadow-md p-6">
                             <h3 class="text-gray-500 text-sm uppercase">Emprunts Actifs</h3>
                             <p class="text-3xl font-bold">183</p>
                         </div>
                         <div class="bg-white rounded-lg shadow-md p-6">
                             <h3 class="text-gray-500 text-sm uppercase">Retards</h3>
                             <p class="text-3xl font-bold text-red-500">12</p>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- Most Borrowed Books -->
                     <div class="bg-white rounded-lg shadow-md p-6">
@@ -82,30 +83,8 @@ $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
                 <div id="users-section" class="section hidden">
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h3 class="text-lg font-semibold mb-4">Gestion des Utilisateurs</h3>
-                        <button class="bg-green-500 text-white px-4 py-2 rounded mb-4">
-                            <i class="fas fa-plus mr-2"></i>Nouvel Utilisateur
-                        </button>
-                        <table class="w-full">
-                            <thead>
-                                <tr class="text-left bg-gray-50">
-                                    <th class="p-3">Nom</th>
-                                    <th class="p-3">Email</th>
-                                    <th class="p-3">Rôle</th>
-                                    <th class="p-3">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-t">
-                                    <td class="p-3">Jean Dupont</td>
-                                    <td class="p-3">jean@example.com</td>
-                                    <td class="p-3">Membre</td>
-                                    <td class="p-3">
-                                        <button class="text-blue-500 mr-2"><i class="fas fa-edit"></i></button>
-                                        <button class="text-red-500"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <?php include 'allUsers.php'?>
+                        
                     </div>
                 </div>
 
@@ -196,7 +175,35 @@ $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
                     showSection(sectionId);
                 });
             });
-    </script>
+            
+            // MOdal for editing users role
+            function openModal(userName, currentRole) {
+            // Display modal
+            const modal = document.getElementById('roleModal');
+            modal.classList.remove('hidden');
+
+            // Set user name and current role
+            document.getElementById('modalUserName').innerText = userName;
+            document.getElementById('userRole').value = currentRole.toLowerCase();
+        }
+
+        function closeModal() {
+            // Hide modal
+            const modal = document.getElementById('roleModal');
+            modal.classList.add('hidden');
+        }
+</script>
+    <?php if(isset($_GET['page'])){
+        switch($_GET['page']){
+            case 'catalogue':
+                echo "<script>document.querySelector('a[data-section=\"catalog\"]').click();</script>";
+                break;
+            case 'users':
+                echo "<script>document.querySelector('a[data-section=\"users\"]').click();</script>";
+                break;
+        }
+    }
+    ?>
 </body>
 </html>
 
