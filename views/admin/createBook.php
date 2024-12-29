@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
    
     if ($result === true) {
-        header('Location: createBook.php?the_book_was_added');
+        header('Location: admin_dash.php?page=catalogue');
         exit();
     } else {
         $errors = $result;
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     class="mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-500">
                     Ajouter
                 </button>
-                <a href="../admin/admin_dash.php?page=catalogue"
+                <a href="admin_dash.php?page=catalogue"
                     class="mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     Retour
                 </a>

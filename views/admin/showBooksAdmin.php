@@ -30,8 +30,8 @@
         <td class="p-3"><?=$book['name']?></td>
         <td class="p-3"><?=$book['status']?></td>
         <td class="p-3">
-            <a href="../books/editBook.php?id=<?=$book['id']?>" class="text-blue-500 mr-2"><i class="fas fa-edit"></i></a>
-            <a href="../admin/deleteBook.php?id=<?=$book['id']?>" class="text-red-500"><i class="fas fa-trash"></i></a>
+            <a href="editBook.php?id=<?=$book['id']?>" class="text-blue-500 mr-2"><i class="fas fa-edit"></i></a>
+            <a href="deleteBook.php?id=<?=$book['id']?>" class="text-red-500"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     <?php }?>

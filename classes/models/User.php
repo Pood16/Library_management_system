@@ -31,13 +31,9 @@
                 $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
                 $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
                 $stmt->bindParam(':password', $secure_password, PDO::PARAM_STR);
-                // $stmt->bindParam(':role', $this->role, PDO::PARAM_STR);
                 $stmt->execute();
-                
-                header("Location: ../../views/books/index.php");
             } catch (PDOException $e) {
                 echo 'Failed to add the user: ' . $e->getMessage();
-                // header("Location: ../views/users/signup.php?set_user_statement=stmtfailed");
                 exit();
             } finally {
                 $stmt = null;

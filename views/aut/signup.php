@@ -1,22 +1,22 @@
 <?php
 require_once '../../classes/controllers/userController.php';
+$errors = [
+    'name' => '',
+    'email' => '',
+    'password' => ''
+];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
+   
 
     $controller = new UserController();
     $result = $controller->register($_POST);
     
     if ($result === true) {
-        header('Location: login.php?comming-from-signup');
+        header('Location: login.php?user_registred');
         exit();
     } else {
         $errors = $result;
-        echo "<pre>";
-        print_r($errors);
-        echo "</pre>";
     }
 } 
 ?>
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-800">Create Account</h2>
                 <p class="text-gray-600 mt-2">Join our library community</p>
-                <span class="text-red-400"></span>
+                
             </div>
 
             <form action="<?=htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post" class="space-y-6">
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                     <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500">
-                    <span class="text-red-400"></span>
+                    <span class="text-red-400"><?=$errors['name']?></span>
 
                 </div>
 
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <input type="text" id="email" name="email"  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500">
-                    <span class="text-red-400"></span>
+                    <span class="text-red-400"><?=$errors['email']?></span>
 
                 </div>
 
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                     <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500">
-                    <span class="text-red-400"></span>
+                    <span class="text-red-400"><?=$errors['password']?></span>
                 </div>
 
                 <!-- Register Button -->

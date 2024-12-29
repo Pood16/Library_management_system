@@ -15,8 +15,8 @@
         <div class="mt-4 flex justify-between items-center">
             <span class="text-green-600 text-sm"><?=$book['status']?></span>
             <div>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Réserver </button>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Details </button>
+                
+                <a href="bookDetails.php?id=<?=$book['id']?>" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Details </a>
             </div>
         </div>
     </div>

@@ -1,5 +1,11 @@
 <?php
     require_once '../../classes/controllers/userController.php';
+    $errors = [
+        'name' => '',
+        'email' => '',
+        'password' => '',
+        'general' => ''
+    ];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $controller = new UserController();
         $result = $controller->login($_POST);
@@ -9,9 +15,6 @@
             exit();
         } else {
             $errors = $result;
-            echo "<pre>";
-            print_r($errors);
-            echo "</pre>";
         }
     } 
     function checkRole($role){
@@ -21,7 +24,7 @@
                 header('Location: ../admin/admin_dash.php');
                 break;
             case 'authenticated':
-                header('Location: ../users/user_dash.php');
+                header('Location: ../books/user_dash.php');
                 break;
             case 'visitor':
                 header('Location: ../books/index.php');
@@ -55,6 +58,7 @@
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-800">Welcome Back</h2>
                 <p class="text-gray-600 mt-2">Login to your library account</p>
+                <span class="text-red-500"><?=$errors['general']?></span>
             </div>
 
             <form class="space-y-6" action="<?=htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post">
@@ -63,14 +67,16 @@
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <input type="text" id="email" name="email" 
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
+                        <span class="text-red-500"><?=$errors['email']?></span>
+                    </div>
 
                 <!-- Password -->
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                     <input type="password" id="password" name="password"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
+                        <span class="text-red-500"><?=$errors['password']?></span>
+                    </div>
 
                 
             

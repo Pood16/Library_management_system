@@ -1,6 +1,6 @@
 <?php
 session_start();
-$user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
+$user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
 ?>
 
 <!DOCTYPE html>
@@ -10,13 +10,14 @@ $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bibliothèque Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-gray-100">
     <div class="min-h-screen flex">
         <!-- Sidebar -->
         <aside class="bg-gray-800 text-white w-64 min-h-screen px-4 py-6">
             <div class="mb-8">
-                <h2 class="text-2xl font-bold">Bibliothèque</h2>
+                <h2 class="text-2xl font-bold"><span class="text-red-500">Active: </span><?=$user_name?></h2>
             </div>
             
             <!-- Navigation -->

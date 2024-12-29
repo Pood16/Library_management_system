@@ -93,7 +93,7 @@
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h3 class="text-lg font-semibold mb-4">Catalogue de Livres</h3>
                         <div class="flex justify-between items-center">
-                            <a href="../books/createBook.php" class="bg-green-500 text-white px-4 py-2 rounded mb-4">
+                            <a href="createBook.php" class="bg-green-500 text-white px-4 py-2 rounded mb-4">
                                 <i class="fas fa-plus mr-2"></i>Ajouter un livre
                             </a>
                             <a href="../admin/addCat.php" class="bg-green-500 text-white px-4 py-2 rounded mb-4">
