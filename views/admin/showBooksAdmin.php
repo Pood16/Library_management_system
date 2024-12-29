@@ -5,7 +5,7 @@
      require_once '../../classes/controllers/bookController.php';
     //  require_once '../../classes/controllers/catController.php';
      $allBookscontroller = new bookController();
-     $allBooks = $allBookscontroller ->showBooks();
+     $allBooks = $allBookscontroller ->showBooks('', '');
     
 
      

@@ -34,17 +34,43 @@
             }
         }
         // display books
-        public function displayBook(){
+        // public function displayBook(){
+        //     try {
+        //         $db = new Database('Library', 8951);
+        //         $pdo = $db->connect();
+        //         $sql = 'SELECT books.*, categories.name FROM books JOIN categories ON books.category_id = categories.id';
+        //         $stmt = $pdo->prepare($sql);
+        //         $stmt->execute();
+        //         $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //         return $books;
+        //     } catch (PDOException $err) {
+        //         echo 'Failed to add the Book: ' . $err->getMessage();
+        //         exit();
+        //     } finally {
+        //         $stmt = null;
+        //     }
+        // }
+        // test
+        public function displayBook($search, $category) {
             try {
                 $db = new Database('Library', 8951);
                 $pdo = $db->connect();
                 $sql = 'SELECT books.*, categories.name FROM books JOIN categories ON books.category_id = categories.id';
+                if ($search != '' && $category != '') {
+                    $sql .= " WHERE books.title LIKE '%$search%' AND categories.id = '$category'";
+                }
+                else if ($search != '') {
+                    $sql .= " WHERE books.title LIKE '%$search%'";
+                }
+                else if ($category != '') {
+                    $sql .= " WHERE categories.id = '$category'";
+                }
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $books;
             } catch (PDOException $err) {
-                echo 'Failed to add the Book: ' . $err->getMessage();
+                echo 'Failed to get books: ' . $err->getMessage();
                 exit();
             } finally {
                 $stmt = null;
@@ -101,6 +127,23 @@
                 $stmt->execute();
             } catch (PDOException $err) {
                 echo 'Failed to Delete the book the Book: ' . $err->getMessage();
+                exit();
+            } finally {
+                $stmt = null;
+            }
+        }
+        // show books user dash
+        public function displayBooks($searched, $filtred){
+            try {
+                $db = new Database('Library', 8951);
+                $pdo = $db->connect();
+                $sql = 'SELECT books.*, categories.name FROM books JOIN categories ON books.category_id = categories.id';
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $books;
+            } catch (PDOException $err) {
+                echo 'Failed to add the Book: ' . $err->getMessage();
                 exit();
             } finally {
                 $stmt = null;

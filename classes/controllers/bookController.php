@@ -41,9 +41,9 @@
 
         }
         // function to display all books in db
-        public function showBooks(){
+        public function showBooks($search='', $category=''){
             $books = new Book();
-            $rows = $books->displayBook();
+            $rows = $books->displayBook($search, $category);
             return $rows;
         }
         // get book by id

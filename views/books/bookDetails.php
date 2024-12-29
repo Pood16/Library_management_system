@@ -37,16 +37,15 @@
                     <h3 class="text-lg font-semibold mb-2"><?=$row['title']?></h3>
                     <p class="text-sm text-gray-700 mb-2"><span class="text-black font-bold">Author:</span> <?=$row['author']?></p>
                     <p class="text-sm text-gray-700 mb-2"><span class="text-black font-bold">Description: </span><br> <?=$row['summary']?></p>
+                    <p class="text-sm text-gray-700 mb-2"><span class="text-black font-bold">Categorie: </span><br> <?=$row['name']?></p>
                     <p class="text-sm text-gray-700 mb-2"><span class="text-black font-bold">Status: </span><?=$row['status']?></p>
                     <?php if($row['status'] == 'available'){?>
                     <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Emprunter </button>
                     <?php }elseif($row['status'] == 'borrowed'){ ?>
                         <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Reserver </button>
                     <?php  }else{ ?>
-                        <p class="text-sm text-red-700 mb-2">Ce Livre n'est pas disponible pour le moment, merci de le consulter  ultérieurement </p>
+                        <p class="text-sm text-red-700 mb-2">Ce Livre est deja reserver, merci de le consulter  ultérieurement </p>
                     <?php } ?>
-                    
-                    
                 </div>
             </div>
         </div>

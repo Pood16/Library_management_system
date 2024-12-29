@@ -30,7 +30,7 @@ $user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
-                            <span>Recherche</span>
+                            <span>Exploiter</span>
                         </button>
                     </li>
                     <li>
@@ -63,27 +63,7 @@ $user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
             <!-- search and filter -->
             <div id="search-content" class="content-section">
                 <h2 class="text-2xl font-bold mb-6">Catalogue Des Livres</h2>
-                <div class="space-y-6">
-                    <div class="flex justify-between">
-                        <div class="flex justify-between items-center">
-                            <input type="text" placeholder="Rechercher par titre ou auteur" class="px-4 py-2 rounded-lg border focus:outline-none focus:ring-1 focus:ring-blue-500">
-                            <input type="submit" value="Search" class="ml-2 px-5 py-2 bg-blue-600 cursor-pointer text-white rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-1 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <select class="px-4 py-2 rounded-lg border focus:outline-none focus:ring-1 focus:ring-blue-500">
-                                <option value="" disabled selected>Filtrer par catégorie</option>
-                                <option value="fiction">Fiction</option>
-                                <option value="science">Science</option>
-                                <option value="histoire">Histoire</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <!-- Search Results -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <?php include '../books/showBooksInDash.php'?>
-                    </div>
-                </div>
+                <?php include '../books/showBooksInDash.php'?>
             </div>
 
             <!-- Borrowed Books Content -->
