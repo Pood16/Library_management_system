@@ -39,10 +39,14 @@
                     <p class="text-sm text-gray-700 mb-2"><span class="text-black font-bold">Description: </span><br> <?=$row['summary']?></p>
                     <p class="text-sm text-gray-700 mb-2"><span class="text-black font-bold">Status: </span><?=$row['status']?></p>
                     <?php if($row['status'] == 'available'){?>
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Réserver </button>
-                    <?php }else{ ?>
-                        <p class="text-sm text-red-700 mb-2">This book is  not availibale for reservation at this moment, Please Come back later!</p>
-                    <?php  } ?>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Emprunter </button>
+                    <?php }elseif($row['status'] == 'borrowed'){ ?>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Reserver </button>
+                    <?php  }else{ ?>
+                        <p class="text-sm text-red-700 mb-2">Ce Livre n'est pas disponible pour le moment, merci de le consulter  ultérieurement </p>
+                    <?php } ?>
+                    
+                    
                 </div>
             </div>
         </div>
