@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    // if($_SESSION['user_role'] !== 'admin'){
+    //     header('Location: ../aut/login.php');
+    //     exit();
+    // }
     require_once '../../classes/controllers/bookController.php';
     $book = new bookController();
     $rows = $book->showBooks();

@@ -54,17 +54,18 @@
                 </select>
             </div>
             <div>
-            
-            <div>
+        
+            <!-- <div>
                 <label for="status" class="block text-sm font-medium text-black">Status</label>
                 <select name="status" id="status" class="mt-1 text-gray-700 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="<?=$res['status']?>" selected><?=$res['status']?></option>
+                    <option value="<?//=$res['status']?>" selected><?//=$res['status']?></option>
                     <option value="reserved">Reserved</option>
                     <option value="borrowed">Borrowed</option>
                     <option value="available">Available</option>
                     
                 </select>
-            </div>
+            </div> -->
+            
                 <label for="cover_image" class="block text-sm font-medium text-black">Cover Image</label>
                 <input type="text" id="covar_image" name="cover_image" value="<?=$res['cover_image']?>"  
                     class="mt-1 text-gray-700 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">

@@ -81,7 +81,7 @@
             try {
                 $db = new Database('Library', 8951);
                 $pdo = $db->connect();
-                $sql = 'SELECT books.*, categories.name FROM books INNER JOIN categories ON books.category_id = categories.id WHERE books.id = :id';
+                $sql = 'SELECT books.*, categories.name, borrowings.user_id, borrowings.return_date FROM books INNER JOIN categories ON books.category_id = categories.id LEFT JOIN borrowings ON books.id = borrowings.book_id  AND borrowings.return_date IS NULL WHERE books.id = :id';
                 $stmt = $pdo->prepare($sql);
                 $stmt->bindParam(':id', $id, PDO::PARAM_STR);
                 $stmt->execute();
@@ -95,11 +95,11 @@
             }
         }
         // update book 
-        public function updateBook($id, $title, $author, $category_id, $cover_image, $summary, $status){
+        public function updateBook($id, $title, $author, $category_id, $cover_image, $summary){
             try {
                 $db = new Database('Library', 8951);
                 $pdo = $db->connect();
-                $sql = 'UPDATE books SET title = :title, author = :author, category_id = :category_id, cover_image = :cover_image, summary = :summary, status = :status WHERE books.id = :id';
+                $sql = 'UPDATE books SET title = :title, author = :author, category_id = :category_id, cover_image = :cover_image, summary = :summary WHERE books.id = :id';
                 $stmt = $pdo->prepare($sql);
                 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
                 $stmt->bindParam(':title', $title, PDO::PARAM_STR);
@@ -107,7 +107,7 @@
                 $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
                 $stmt->bindParam(':cover_image', $cover_image, PDO::PARAM_STR);
                 $stmt->bindParam(':summary', $summary, PDO::PARAM_STR);
-                $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+                // $stmt->bindParam(':status', $status, PDO::PARAM_STR);
                 $stmt->execute();
             } catch (PDOException $err) {
                 echo 'Failed to update the book the Book: ' . $err->getMessage();
@@ -149,6 +149,7 @@
                 $stmt = null;
             }
         }
+
     
     }
 

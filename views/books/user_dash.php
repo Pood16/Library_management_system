@@ -1,6 +1,18 @@
 <?php
 session_start();
-$user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
+if($_SESSION['user_role'] !== 'authenticated'){
+    header('Location: ../aut/login.php');
+    exit();
+}
+$user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: '';
+$user_id = isset($_SESSION['user_id'])? $_SESSION['user_id'] : '';
+// // echo $user_id;
+// require '../../classes/models/Borrowing.php';
+// $myBooks = new Borrowing();
+// $books = $myBooks->myBorrowingBooks($user_id);
+// // echo "<pre>";
+// // print_r($books);
+// // echo "</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -17,14 +29,14 @@ $user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
         <!-- Sidebar -->
         <aside class="bg-gray-800 text-white w-64 min-h-screen px-4 py-6">
             <div class="mb-8">
-                <h2 class="text-2xl font-bold"><span class="text-red-500">Active: </span><?=$user_name?></h2>
+                <h2 class="text-2xl font-bold"><span class="text-red-500">Active: </span><?=$user_name?> (<?=$user_id?>)</h2>
             </div>
             
             <!-- Navigation -->
             <nav>
                 <ul class="space-y-2">
                     <li>
-                        <button onclick="showContent('search')" 
+                        <button data-section = "search" onclick="showContent('search')" 
                                 class="nav-link w-full flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
                                 data-active="true">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,7 +46,7 @@ $user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
                         </button>
                     </li>
                     <li>
-                        <button onclick="showContent('borrowed')" 
+                        <button data-section="borrowed" onclick="showContent('borrowed')" 
                                 class="nav-link w-full flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
@@ -43,7 +55,7 @@ $user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
                         </button>
                     </li>
                     <li>
-                        <button onclick="showContent('notifications')" 
+                        <button data-section="" onclick="showContent('notifications')" 
                                 class="nav-link w-full flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
@@ -52,7 +64,7 @@ $user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
                         </button>
                     </li>
                     <li>
-                        <a href="../aut/login.php" class="nav-link w-full flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">Log out</a>
+                        <a href="../aut/logout.php" class="nav-link w-full flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">Log out</a>
                     </li>
                 </ul>
             </nav>
@@ -67,20 +79,7 @@ $user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
             </div>
 
             <!-- Borrowed Books Content -->
-            <div id="borrowed-content" class="content-section hidden">
-                <h2 class="text-2xl font-bold mb-6">Mes Emprunts</h2>
-                <div class="space-y-4">
-                    <div class="bg-white rounded-lg shadow p-6 flex items-center justify-between">
-                        <div>
-                            <h3 class="font-bold">Notre-Dame de Paris</h3>
-                            <p class="text-gray-600">Victor Hugo</p>
-                        </div>
-                        <button class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700">
-                            Retourner
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <?php include 'myBorrowing.php'?>
 
             <!-- Notifications Content -->
             <div id="notifications-content" class="content-section hidden">
@@ -123,6 +122,17 @@ $user_name = isset($_SESSION['user_name'])? $_SESSION['user_name']: 'visitor';
             showContent('search');
         });
     </script>
+    <?php if(isset($_GET['page'])){
+        switch($_GET['page']){
+            case 'catalogue':
+                echo "<script>document.querySelector('a[data-section=\"catalog\"]').click();</script>";
+                break;
+            case 'users':
+                echo "<script>document.querySelector('a[data-section=\"users\"]').click();</script>";
+                break;
+        }
+    }
+    ?>
 </body>
 </html>
 

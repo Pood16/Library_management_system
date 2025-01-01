@@ -1,12 +1,15 @@
 <!-- get book details based on the passed id -->
 <?php
+    session_start();
     $id = $_GET['id'];
+    $active_user = $_SESSION['user_name'];
     require_once '../../classes/controllers/bookController.php';
     $book = new bookController();
     $row = $book->getBook($id);
     // echo "<pre>";
     // print_r($row);
     // echo "</pre>";
+    // die();
 ?>
 
 
@@ -21,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="fixed inset-0 bg-black bg-opacity-50  flex items-center justify-center">
+    <div class="fixed  inset-0 bg-black bg-opacity-50  flex items-center justify-center">
         <div class="bg-white w-11/12 p-6 rounded-lg shadow-lg">
             <div class="flex justify-start">
                 <a href="user_dash.php" class="text-blue-600 hover:text-blue-800">
@@ -39,12 +42,13 @@
                     <p class="text-sm text-gray-700 mb-2"><span class="text-black font-bold">Description: </span><br> <?=$row['summary']?></p>
                     <p class="text-sm text-gray-700 mb-2"><span class="text-black font-bold">Categorie: </span><br> <?=$row['name']?></p>
                     <p class="text-sm text-gray-700 mb-2"><span class="text-black font-bold">Status: </span><?=$row['status']?></p>
+                    
                     <?php if($row['status'] == 'available'){?>
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Emprunter </button>
-                    <?php }elseif($row['status'] == 'borrowed'){ ?>
+                    <a href="empruntBook.php?id=<?=$row['id']?>&title=<?=$row['title']?>&author=<?=$row['author']?>" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Emprunter </a>
+                    <?php }elseif($row['status'] == 'borrowed' && $_SESSION['user_id'] !== $row['user_id'] && $row['return_date'] == NULL){ ?>
                         <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"> Reserver </button>
                     <?php  }else{ ?>
-                        <p class="text-sm text-red-700 mb-2">Ce Livre est deja reserver, merci de le consulter  ultérieurement </p>
+                        <p class="text-sm text-red-700 mb-2">Vous avez deja emprunter ce livre </p>
                     <?php } ?>
                 </div>
             </div>
