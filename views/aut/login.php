@@ -26,9 +26,6 @@
             case 'authenticated':
                 header('Location: ../books/user_dash.php');
                 break;
-            case 'visitor':
-                header('Location: ../books/index.php');
-                break;
             default:
                 header('Location: login.php?the_role_is_undefined');
                 break;

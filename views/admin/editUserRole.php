@@ -31,7 +31,6 @@
                     <option value="<?=$row['role']?>" selected><?=$row['role']?></option>
                     <option value="admin">Admin</option>
                     <option value="authenticated">Authenticated</option>
-                    <option value="visitor">Visitor</option>
                 </select>
                 <input type="hidden" name="id" value="<?=$row['id']?>">
           

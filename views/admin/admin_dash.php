@@ -80,7 +80,8 @@
                     <!-- Most Borrowed Books -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h3 class="text-lg font-semibold mb-4">Livres les plus empruntés</h3>
-                        <!-- Add content here -->
+                        <!-- stats -->
+                        <?php include 'stats.php'?>
                     </div>
                 </div>
 

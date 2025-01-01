@@ -53,6 +53,16 @@
                 echo "Failed to return the book :". $err->getMessage();
             }
         }
+        // statistiques
+        public function stats(){
+            $db = new Database('Library', 8951);
+            $pdo = $db -> connect();
+            $sql = "SELECT books.title, COUNT(borrowings.book_id) AS number_of_borrowings FROM books LEFT JOIN borrowings ON books.id = borrowings.book_id GROUP BY books.title ORDER BY number_of_borrowings DESC";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        }
             
         
     }
